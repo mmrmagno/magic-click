@@ -6,17 +6,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the main window and set up the views
-        let contentView = MainView(frame: NSMakeRect(0, 0, 600, 400))
-        window = NSWindow(contentRect: NSMakeRect(0, 0, 600, 400),
-                          styleMask: [.titled, .closable, .resizable],
+        // Create the main application window
+        let screenSize = NSScreen.main?.frame ?? NSMakeRect(0, 0, 800, 600)
+        let windowSize = NSMakeRect(screenSize.width / 4, screenSize.height / 4, 600, 400)
+        
+        window = NSWindow(contentRect: windowSize,
+                          styleMask: [.titled, .closable, .resizable, .miniaturizable],
                           backing: .buffered, defer: false)
-        window.contentView = contentView
+        
+        window.title = "Magic Mouse Middle Click App"
         window.makeKeyAndOrderFront(nil)
         
-        NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved, .leftMouseDown, .rightMouseDown]) { event in
-            contentView.updateLiveFeed(with: event)
-        }
+        // Set the content view to an empty view initially or your main view
+        window.contentView = MainView(frame: window.contentRect(forFrameRect: windowSize))
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
