@@ -59,10 +59,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApplication.shared.terminate(self)
     }
 }
-
-let app = NSApplication.shared
-let delegate = AppDelegate()
-app.delegate = delegate
-
-// Start the event loop
-app.run()
