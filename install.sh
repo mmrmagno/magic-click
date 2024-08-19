@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Define the app name and bundle structure
 APP_NAME="MagicMouseApp"
 BUNDLE_DIR="$APP_NAME.app"
 CONTENTS_DIR="$BUNDLE_DIR/Contents"
