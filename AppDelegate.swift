@@ -7,21 +7,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // Debugging print to check if the app is launching properly
+        print("Application Did Finish Launching")
+        
         // Check if the app has accessibility permissions
         if !AXIsProcessTrusted() {
+            print("Accessibility permissions not granted. Showing alert.")
             showAccessibilityAlert()
         } else {
+            print("Accessibility permissions granted. Setting up the main window.")
             setupMainWindow()
         }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        print("Application Will Terminate")
     }
 
     // Function to set up the main application window
     func setupMainWindow() {
         let windowSize = NSMakeRect(0, 0, 600, 400)
+        
         window = NSWindow(contentRect: windowSize,
                           styleMask: [.titled, .closable, .resizable, .miniaturizable],
                           backing: .buffered, defer: false)
@@ -29,6 +36,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.title = "Magic Mouse Middle Click App"
         window.center() // Ensure the window is centered on the screen
         window.makeKeyAndOrderFront(nil) // Make the window key and frontmost
+
+        // Debugging print to check if the window was created
+        print("Main window should now be visible.")
     }
 
     // Function to show an alert dialog if accessibility permissions are missing
@@ -49,3 +59,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApplication.shared.terminate(self)
     }
 }
+
+let app = NSApplication.shared
+let delegate = AppDelegate()
+app.delegate = delegate
+
+// Start the event loop
+app.run()
